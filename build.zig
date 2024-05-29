@@ -16,8 +16,6 @@ pub fn build(b: *std.Build) void {
     exe.linkSystemLibrary("glfw");
     exe.linkSystemLibrary("GL");
 
-    exe.linkLibC();
-
     b.installArtifact(exe);
 
     const run_cmd = b.addRunArtifact(exe);
