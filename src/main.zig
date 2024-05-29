@@ -4,28 +4,29 @@ const gl = @cImport({
 });
 
 pub fn main() !void {
-    if (gl.glfwInit() == 0) {
+    if (gl.glfwInit() == gl.GL_NONE) {
         std.debug.print("Failed to initialize GLFW\n", .{});
         return;
     }
 
-    const window = gl.glfwCreateWindow(640, 480, "Hello World", null, null);
-    if (window == null) {
+    const window = gl.glfwCreateWindow(640, 480, "Hello World", null, null) orelse {
         gl.glfwTerminate();
         return;
+    };
+
+    defer {
+        gl.glfwDestroyWindow(window);
+        gl.glfwTerminate();
     }
 
     gl.glfwMakeContextCurrent(window);
 
-    while (gl.glfwWindowShouldClose(window) == 0) {
-        gl.glClear(gl.GL_COLOR_BUFFER_BIT);
+    while (gl.glfwWindowShouldClose(window) == gl.GL_NONE) {
+        gl.glClear(gl.GL_COLOR_CLEAR_VALUE);
 
         // Draw stuff here
 
         gl.glfwSwapBuffers(window);
         gl.glfwPollEvents();
     }
-
-    gl.glfwDestroyWindow(window);
-    gl.glfwTerminate();
 }
