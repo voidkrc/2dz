@@ -1,20 +1,33 @@
 const std = @import("std");
+const gl = @cImport({
+    @cInclude("GLFW/glfw3.h");
+});
+
+usingnamespace gl;
 
 pub fn main() !void {
-    std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
+    if (gl.glfwInit() == 0) {
+        std.debug.print("Failed to initialize GLFW\n", .{});
+        return;
+    }
 
-    const stdout_file = std.io.getStdOut().writer();
-    var bw = std.io.bufferedWriter(stdout_file);
-    const stdout = bw.writer();
+    const window = gl.glfwCreateWindow(640, 480, "Hello World", null, null);
+    if (window == null) {
+        gl.glfwTerminate();
+        return;
+    }
 
-    try stdout.print("Run `zig build test` to run the tests.\n", .{});
+    gl.glfwMakeContextCurrent(window);
 
-    try bw.flush(); // don't forget to flush!
-}
+    while (gl.glfwWindowShouldClose(window) == 0) {
+        gl.glClear(gl.GL_COLOR_BUFFER_BIT);
 
-test "simple test" {
-    var list = std.ArrayList(i32).init(std.testing.allocator);
-    defer list.deinit(); // try commenting this out and see if zig detects the memory leak!
-    try list.append(42);
-    try std.testing.expectEqual(@as(i32, 42), list.pop());
+        // Draw stuff here
+
+        gl.glfwSwapBuffers(window);
+        gl.glfwPollEvents();
+    }
+
+    gl.glfwDestroyWindow(window);
+    gl.glfwTerminate();
 }
