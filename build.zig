@@ -13,8 +13,14 @@ pub fn build(b: *std.Build) void {
 
     // Link c library
     exe.addIncludePath(b.path("include"));
+    exe.addCSourceFile(.{ .file = b.path("glad/glad.c") });
+
     exe.linkSystemLibrary("glfw");
     exe.linkSystemLibrary("GL");
+
+    exe.defineCMacro("GLFW_INCLUDE_NONE", null);
+
+    exe.linkLibC();
 
     b.installArtifact(exe);
 
