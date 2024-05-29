@@ -8,7 +8,11 @@
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      devShells.${system}.default =
-        pkgs.mkShell { nativeBuildInputs = with pkgs; [ zig zls glfw ]; };
+      devShells.${system}.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [ zig zls glfw ];
+        shellHook = ''
+          exec zsh
+        '';
+      };
     };
 }
