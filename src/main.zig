@@ -3,8 +3,6 @@ const gl = @cImport({
     @cInclude("GLFW/glfw3.h");
 });
 
-usingnamespace gl;
-
 pub fn main() !void {
     if (gl.glfwInit() == 0) {
         std.debug.print("Failed to initialize GLFW\n", .{});
