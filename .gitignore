@@ -6,3 +6,5 @@ zig-out/
 /build-*/
 /docgen_tmp/
 DS_Store
+main
+main.o
