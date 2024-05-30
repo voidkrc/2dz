@@ -1,41 +1,38 @@
 const std = @import("std");
-const gl = @cImport({
-    @cInclude("glad/gl.h");
-    @cInclude("glfw3.h");
-});
+const c = @import("c.zig");
 
 pub fn main() !void {
-    if (gl.glfwInit() == gl.GLFW_FALSE) {
-        std.debug.print("Failed to initialize GLFW\n", .{});
+    if (c.glfwInit() == c.GLFW_FALSE) {
+        std.debug.print("Failed to initialize cFW\n", .{});
         return;
     }
 
-    const window = gl.glfwCreateWindow(640, 480, "Hello World", null, null) orelse {
-        gl.glfwTerminate();
+    const window = c.glfwCreateWindow(640, 480, "Hello World", null, null) orelse {
+        c.glfwTerminate();
         return;
     };
 
     defer {
-        gl.glfwDestroyWindow(window);
-        gl.glfwTerminate();
+        c.glfwDestroyWindow(window);
+        c.glfwTerminate();
     }
 
-    gl.glfwWindowHint(gl.GLFW_CONTEXT_VERSION_MAJOR, 3);
-    gl.glfwWindowHint(gl.GLFW_CONTEXT_VERSION_MINOR, 3);
-    gl.glfwWindowHint(gl.GLFW_OPENGL_PROFILE, gl.GLFW_OPENGL_CORE_PROFILE);
-    gl.glfwMakeContextCurrent(window);
+    c.glfwWindowHint(c.GLFW_CONTEXT_VERSION_MAJOR, 3);
+    c.glfwWindowHint(c.GLFW_CONTEXT_VERSION_MINOR, 3);
+    c.glfwWindowHint(c.GLFW_OPENGL_PROFILE, c.GLFW_OPENGL_CORE_PROFILE);
+    c.glfwMakeContextCurrent(window);
 
-    if (gl.gladLoaderLoadGL() == gl.GLFW_FALSE) {
-        std.debug.print("Failed to initialize Glad\n", .{});
+    if (c.gladLoaderLoadGL() == c.GLFW_FALSE) {
+        std.debug.print("Failed to initialize cad\n", .{});
         return;
     }
 
-    while (gl.glfwWindowShouldClose(window) == gl.GLFW_FALSE) {
-        gl.glClear(gl.GL_COLOR_CLEAR_VALUE);
+    while (c.glfwWindowShouldClose(window) == c.GLFW_FALSE) {
+        c.glClear(c.GL_COLOR_CLEAR_VALUE);
 
         // Draw stuff here
 
-        gl.glfwSwapBuffers(window);
-        gl.glfwPollEvents();
+        c.glfwSwapBuffers(window);
+        c.glfwPollEvents();
     }
 }
