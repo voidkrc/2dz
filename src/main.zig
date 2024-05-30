@@ -88,16 +88,16 @@ pub fn main() !void {
     c.glGenVertexArrays(1, &VAO);
     c.glGenBuffers(1, &VBO);
 
+    // Bind Vertex Array Object
     c.glBindVertexArray(VAO);
 
+    // Copy vertices in buffer for OpenGL
     c.glBindBuffer(c.GL_ARRAY_BUFFER, VBO);
     c.glBufferData(c.GL_ARRAY_BUFFER, @sizeOf(@TypeOf(vertices)), &vertices, c.GL_STATIC_DRAW);
 
+    // Set vertex attributes pointers
     c.glVertexAttribPointer(0, 3, c.GL_FLOAT, c.GL_FALSE, 3 * @sizeOf(f32), null);
     c.glEnableVertexAttribArray(0);
-
-    c.glBindBuffer(c.GL_ARRAY_BUFFER, 0);
-    c.glBindVertexArray(0);
 
     c.glClearColor(0.0, 0.0, 1.0, 1.0);
     while (c.glfwWindowShouldClose(window) == c.GLFW_FALSE) {
@@ -109,7 +109,7 @@ pub fn main() !void {
 
         c.glClear(c.GL_COLOR_BUFFER_BIT);
 
-        // Draw stuff here
+        // Draw stuff
         c.glUseProgram(program);
         c.glBindVertexArray(VAO);
         c.glDrawArrays(c.GL_TRIANGLES, 0, 3);
