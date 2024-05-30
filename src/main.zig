@@ -33,10 +33,10 @@ pub fn main() !void {
     // Shaders
     const vertex_shader_source: [*c]const u8 =
         \\#version 330 core
-        \\layout (location = 0) in vec4 aPos;
+        \\layout (location = 0) in vec3 aPos;
         \\void main()
         \\{
-        \\  gl_Position = vec4(aPos);
+        \\  gl_Position = gl_Position = vec4(aPos, 1.0);
         \\}
     ;
     const vertex_shader = c.glCreateShader(c.GL_VERTEX_SHADER);
@@ -81,7 +81,7 @@ pub fn main() !void {
     c.glDeleteShader(vertex_shader);
     c.glDeleteShader(fragment_shader);
 
-    const vertices: [12]f32 = [_]f32{ -0.5, 0.5, 0.0, 0.5, 0.5, 0.0, -0.5, -0.5, 0.0, 0.5, -0.5, 0.0 };
+    const vertices: [9]f32 = [_]f32{ -0.5, -0.5, 0.0, 0.5, -0.5, 0.0, 0.0, 0.5, 0.0 };
 
     var VBO: c.GLuint = 0;
     var VAO: c.GLuint = 0;
@@ -112,7 +112,7 @@ pub fn main() !void {
         // Draw stuff
         c.glUseProgram(program);
         c.glBindVertexArray(VAO);
-        c.glDrawArrays(c.GL_TRIANGLE_STRIP, 0, 4);
+        c.glDrawArrays(c.GL_TRIANGLES, 0, 3);
 
         c.glfwSwapBuffers(window);
         c.glfwPollEvents();
