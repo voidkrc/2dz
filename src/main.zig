@@ -7,8 +7,8 @@ pub fn main() !void {
         return;
     }
 
-    c.glfwWindowHint(c.GLFW_CONTEXT_VERSION_MAJOR, 3);
-    c.glfwWindowHint(c.GLFW_CONTEXT_VERSION_MINOR, 3);
+    c.glfwWindowHint(c.GLFW_CONTEXT_VERSION_MAJOR, 4);
+    c.glfwWindowHint(c.GLFW_CONTEXT_VERSION_MINOR, 1);
     c.glfwWindowHint(c.GLFW_OPENGL_PROFILE, c.GLFW_OPENGL_CORE_PROFILE);
 
     const window = c.glfwCreateWindow(640, 480, "Z_Engine", null, null) orelse {
@@ -28,11 +28,19 @@ pub fn main() !void {
         return;
     }
 
+    const version_ptr = c.glGetString(c.GL_VERSION);
+
+    if (version_ptr == null) {
+        std.log.err("Could not get openGL version", .{});
+    }
+
+    std.debug.print("{s}\n", .{version_ptr});
+
     c.glfwSwapInterval(1);
 
     // Shaders
     const vertex_shader_source: [*c]const u8 =
-        \\#version 330 core
+        \\#version 410 core
         \\layout (location = 0) in vec3 aPos;
         \\void main()
         \\{
@@ -54,7 +62,7 @@ pub fn main() !void {
     }
 
     const fragment_shader_source: [*c]const u8 =
-        \\#version 330 core
+        \\#version 410 core
         \\out vec4 fragment;
         \\void main()
         \\{
@@ -77,6 +85,7 @@ pub fn main() !void {
     c.glAttachShader(program, vertex_shader);
     c.glAttachShader(program, fragment_shader);
     c.glLinkProgram(program);
+    defer c.glDeleteProgram(program);
 
     c.glDeleteShader(vertex_shader);
     c.glDeleteShader(fragment_shader);
@@ -93,11 +102,15 @@ pub fn main() !void {
 
     // Copy vertices in buffer for OpenGL
     c.glBindBuffer(c.GL_ARRAY_BUFFER, VBO);
-    c.glBufferData(c.GL_ARRAY_BUFFER, @sizeOf(@TypeOf(vertices)), &vertices, c.GL_STATIC_DRAW);
+    c.glBufferData(c.GL_ARRAY_BUFFER, vertices.len * @sizeOf(f32), &vertices, c.GL_STATIC_DRAW);
 
     // Set vertex attributes pointers
-    c.glVertexAttribPointer(0, 3, c.GL_FLOAT, c.GL_FALSE, 3 * @sizeOf(f32), null);
     c.glEnableVertexAttribArray(0);
+    c.glVertexAttribPointer(0, 3, c.GL_FLOAT, c.GL_FALSE, 0, null);
+
+    // Unbind non needed
+    c.glBindVertexArray(0);
+    c.glDisableVertexAttribArray(0);
 
     c.glClearColor(0.0, 0.0, 1.0, 1.0);
     while (c.glfwWindowShouldClose(window) == c.GLFW_FALSE) {
