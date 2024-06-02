@@ -410,7 +410,7 @@ PFNGLDRAWARRAYSPROC glad_glDrawArrays = NULL;
 PFNGLDRAWARRAYSINDIRECTPROC glad_glDrawArraysIndirect = NULL;
 PFNGLDRAWARRAYSINSTANCEDPROC glad_glDrawArraysInstanced = NULL;
 PFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC
-    glad_glDrawArraysInstancedBaseInstance = NULL;
+glad_glDrawArraysInstancedBaseInstance = NULL;
 PFNGLDRAWBUFFERPROC glad_glDrawBuffer = NULL;
 PFNGLDRAWBUFFERSPROC glad_glDrawBuffers = NULL;
 PFNGLDRAWELEMENTSPROC glad_glDrawElements = NULL;
@@ -418,11 +418,11 @@ PFNGLDRAWELEMENTSBASEVERTEXPROC glad_glDrawElementsBaseVertex = NULL;
 PFNGLDRAWELEMENTSINDIRECTPROC glad_glDrawElementsIndirect = NULL;
 PFNGLDRAWELEMENTSINSTANCEDPROC glad_glDrawElementsInstanced = NULL;
 PFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC
-    glad_glDrawElementsInstancedBaseInstance = NULL;
+glad_glDrawElementsInstancedBaseInstance = NULL;
 PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC
-    glad_glDrawElementsInstancedBaseVertex = NULL;
+glad_glDrawElementsInstancedBaseVertex = NULL;
 PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC
-    glad_glDrawElementsInstancedBaseVertexBaseInstance = NULL;
+glad_glDrawElementsInstancedBaseVertexBaseInstance = NULL;
 PFNGLDRAWRANGEELEMENTSPROC glad_glDrawRangeElements = NULL;
 PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC glad_glDrawRangeElementsBaseVertex = NULL;
 PFNGLDRAWTRANSFORMFEEDBACKPROC glad_glDrawTransformFeedback = NULL;
@@ -430,7 +430,7 @@ PFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC glad_glDrawTransformFeedbackInstanced =
     NULL;
 PFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC glad_glDrawTransformFeedbackStream = NULL;
 PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC
-    glad_glDrawTransformFeedbackStreamInstanced = NULL;
+glad_glDrawTransformFeedbackStreamInstanced = NULL;
 PFNGLENABLEPROC glad_glEnable = NULL;
 PFNGLENABLEVERTEXARRAYATTRIBPROC glad_glEnableVertexArrayAttrib = NULL;
 PFNGLENABLEVERTEXATTRIBARRAYPROC glad_glEnableVertexAttribArray = NULL;
@@ -497,7 +497,7 @@ PFNGLGETFLOATVPROC glad_glGetFloatv = NULL;
 PFNGLGETFRAGDATAINDEXPROC glad_glGetFragDataIndex = NULL;
 PFNGLGETFRAGDATALOCATIONPROC glad_glGetFragDataLocation = NULL;
 PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC
-    glad_glGetFramebufferAttachmentParameteriv = NULL;
+glad_glGetFramebufferAttachmentParameteriv = NULL;
 PFNGLGETFRAMEBUFFERPARAMETERIVPROC glad_glGetFramebufferParameteriv = NULL;
 PFNGLGETGRAPHICSRESETSTATUSPROC glad_glGetGraphicsResetStatus = NULL;
 PFNGLGETINTEGER64I_VPROC glad_glGetInteger64i_v = NULL;
@@ -512,11 +512,11 @@ PFNGLGETNAMEDBUFFERPARAMETERIVPROC glad_glGetNamedBufferParameteriv = NULL;
 PFNGLGETNAMEDBUFFERPOINTERVPROC glad_glGetNamedBufferPointerv = NULL;
 PFNGLGETNAMEDBUFFERSUBDATAPROC glad_glGetNamedBufferSubData = NULL;
 PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC
-    glad_glGetNamedFramebufferAttachmentParameteriv = NULL;
+glad_glGetNamedFramebufferAttachmentParameteriv = NULL;
 PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC glad_glGetNamedFramebufferParameteriv =
     NULL;
 PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC
-    glad_glGetNamedRenderbufferParameteriv = NULL;
+glad_glGetNamedRenderbufferParameteriv = NULL;
 PFNGLGETOBJECTLABELPROC glad_glGetObjectLabel = NULL;
 PFNGLGETOBJECTPTRLABELPROC glad_glGetObjectPtrLabel = NULL;
 PFNGLGETPOINTERVPROC glad_glGetPointerv = NULL;
@@ -528,7 +528,7 @@ PFNGLGETPROGRAMPIPELINEIVPROC glad_glGetProgramPipelineiv = NULL;
 PFNGLGETPROGRAMRESOURCEINDEXPROC glad_glGetProgramResourceIndex = NULL;
 PFNGLGETPROGRAMRESOURCELOCATIONPROC glad_glGetProgramResourceLocation = NULL;
 PFNGLGETPROGRAMRESOURCELOCATIONINDEXPROC
-    glad_glGetProgramResourceLocationIndex = NULL;
+glad_glGetProgramResourceLocationIndex = NULL;
 PFNGLGETPROGRAMRESOURCENAMEPROC glad_glGetProgramResourceName = NULL;
 PFNGLGETPROGRAMRESOURCEIVPROC glad_glGetProgramResourceiv = NULL;
 PFNGLGETPROGRAMSTAGEIVPROC glad_glGetProgramStageiv = NULL;
@@ -620,7 +620,7 @@ PFNGLINVALIDATEFRAMEBUFFERPROC glad_glInvalidateFramebuffer = NULL;
 PFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC glad_glInvalidateNamedFramebufferData =
     NULL;
 PFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC
-    glad_glInvalidateNamedFramebufferSubData = NULL;
+glad_glInvalidateNamedFramebufferSubData = NULL;
 PFNGLINVALIDATESUBFRAMEBUFFERPROC glad_glInvalidateSubFramebuffer = NULL;
 PFNGLINVALIDATETEXIMAGEPROC glad_glInvalidateTexImage = NULL;
 PFNGLINVALIDATETEXSUBIMAGEPROC glad_glInvalidateTexSubImage = NULL;
@@ -679,7 +679,7 @@ PFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC glad_glNamedFramebufferTextureLayer =
     NULL;
 PFNGLNAMEDRENDERBUFFERSTORAGEPROC glad_glNamedRenderbufferStorage = NULL;
 PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC
-    glad_glNamedRenderbufferStorageMultisample = NULL;
+glad_glNamedRenderbufferStorageMultisample = NULL;
 PFNGLNORMALP3UIPROC glad_glNormalP3ui = NULL;
 PFNGLNORMALP3UIVPROC glad_glNormalP3uiv = NULL;
 PFNGLOBJECTLABELPROC glad_glObjectLabel = NULL;
@@ -2382,4 +2382,3 @@ int gladLoadGLLoader(GLADloadproc load) {
   load_GL_KHR_debug(load);
   return GLVersion.major != 0 || GLVersion.minor != 0;
 }
-

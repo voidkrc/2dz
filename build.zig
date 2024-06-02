@@ -13,7 +13,7 @@ pub fn build(b: *std.Build) void {
 
     // Link c library
     exe.addIncludePath(b.path("include"));
-    exe.addCSourceFile(.{ .file = b.path("glad/glad.c") });
+    exe.addCSourceFile(.{ .file = b.path("src/third_parties/glad.c") });
 
     exe.linkSystemLibrary("glfw");
     exe.linkSystemLibrary("GL");
