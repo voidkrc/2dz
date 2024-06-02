@@ -14,13 +14,13 @@ pub const WindowBuffer = struct {
             return WindowBufferError.GLADInitialization;
         }
 
-        const version_ptr = c.glGetString(c.GL_VERSION);
+        const openGL_version = c.glGetString(c.GL_VERSION);
 
-        if (version_ptr == null) {
+        if (openGL_version == null) {
             return WindowBufferError.OpenGLVersion;
         }
 
-        std.debug.print("Using OpenGL version {s}\n", .{version_ptr});
+        std.debug.print("Using OpenGL version {s}\n", .{openGL_version});
     }
 
     pub fn init(width: c_int, height: c_int) WindowBufferError!WindowBuffer {
