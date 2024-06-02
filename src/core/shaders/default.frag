@@ -1,8 +1,8 @@
 #version 410 core
 
-out vec4 fragment;
+out vec4 color;
 
 void main() {
-  fragment = vec4(1.0, 1.0, 1.0, 1.0);
+  color = vec4(0.20, 0.00, 0.13, 1.0);
 }
 
