@@ -14,17 +14,20 @@ pub fn main() !void {
     const shader_program = try ShaderProgram.init(vertex_content, fragment_content);
     defer shader_program.deinit();
 
-    const vertices = [_]f32{
+    const vertices = [_]c.GLfloat{
         // Positions     // Color
-        -0.5, -0.5, 0.0, 0.00, 0.20, 0.60,
-        0.5,  -0.5, 0.0, 0.40, 0.00, 0.60,
-        0.0,  0.5,  0.0, 0.13, 0.80, 0.00,
+        -0.5, -0.5, 0.0, 0.00, 0.20, 0.60, // Bottom left
+        0.5, -0.5, 0.0, 0.40, 0.00, 0.60, // Bottom right
+        -0.5, 0.5, 0.0, 0.13, 0.80, 0.00, // Top left
+        0.5, 0.5, 0.0, 0.13, 0.80, 0.00, // Top right
     };
 
     var VBO: c.GLuint = 0;
     var VAO: c.GLuint = 0;
+    var IBO: c.GLuint = 0;
     c.glGenVertexArrays(1, &VAO);
     c.glGenBuffers(1, &VBO);
+    c.glGenBuffers(1, &IBO);
 
     // Bind Vertex Array Object
     c.glBindVertexArray(VAO);
@@ -34,13 +37,18 @@ pub fn main() !void {
     c.glBufferData(c.GL_ARRAY_BUFFER, vertices.len * @sizeOf(f32), &vertices, c.GL_STATIC_DRAW);
 
     // Set vertex attributes pointers
-    c.glVertexAttribPointer(0, 3, c.GL_FLOAT, c.GL_FALSE, 6 * @sizeOf(f32), null);
+    c.glVertexAttribPointer(0, 3, c.GL_FLOAT, c.GL_FALSE, 6 * @sizeOf(c.GLfloat), null);
     c.glEnableVertexAttribArray(0);
 
-    const offset: u8 = @intCast(3 * @sizeOf(f32));
+    const offset: u8 = @intCast(3 * @sizeOf(c.GLfloat));
 
     c.glVertexAttribPointer(1, 3, c.GL_FLOAT, c.GL_FALSE, 6 * @sizeOf(f32), @ptrFromInt(offset));
     c.glEnableVertexAttribArray(1);
+
+    // Use indexes to avoid vertex duplication
+    const indeces = [_]c.GLuint{ 2, 0, 1, 3, 2, 1 };
+    c.glBindBuffer(c.GL_ELEMENT_ARRAY_BUFFER, IBO);
+    c.glBufferData(c.GL_ELEMENT_ARRAY_BUFFER, indeces.len * @sizeOf(c.GLuint), &indeces, c.GL_STATIC_DRAW);
 
     // Unbind non needed
     c.glBindVertexArray(0);
@@ -52,7 +60,8 @@ pub fn main() !void {
         // Draw stuff
         c.glUseProgram(shader_program.program_id);
         c.glBindVertexArray(VAO);
-        c.glDrawArrays(c.GL_TRIANGLES, 0, 3);
+        c.glBindBuffer(c.GL_ELEMENT_ARRAY_BUFFER, IBO);
+        c.glDrawElements(c.GL_TRIANGLES, indeces.len, c.GL_UNSIGNED_INT, null);
 
         c.glfwSwapBuffers(window.window);
         c.glfwPollEvents();
@@ -60,4 +69,5 @@ pub fn main() !void {
 
     c.glDeleteVertexArrays(1, &VAO);
     c.glDeleteBuffers(1, &VBO);
+    c.glDeleteBuffers(1, &IBO);
 }
