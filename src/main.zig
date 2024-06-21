@@ -4,7 +4,7 @@ const WindowBuffer = @import("core/window.zig").WindowBuffer;
 const ShaderProgram = @import("core/shader_program.zig").ShaderProgram;
 
 pub fn main() !void {
-    const window = try WindowBuffer.init(600, 460);
+    const window = try WindowBuffer.init(1200, 800);
     defer window.deinit();
 
     // Shaders
@@ -17,9 +17,9 @@ pub fn main() !void {
     const vertices = [_]c.GLfloat{
         // Positions     // Color
         -0.5, -0.5, 0.0, 0.00, 0.20, 0.60, // Bottom left
-        0.5, -0.5, 0.0, 0.40, 0.00, 0.60, // Bottom right
         -0.5, 0.5, 0.0, 0.13, 0.80, 0.00, // Top left
         0.5, 0.5, 0.0, 0.13, 0.80, 0.00, // Top right
+        0.5, -0.5, 0.0, 0.40, 0.00, 0.60, // Bottom right
     };
 
     var VBO: c.GLuint = 0;
@@ -42,11 +42,11 @@ pub fn main() !void {
 
     const offset: u8 = @intCast(3 * @sizeOf(c.GLfloat));
 
-    c.glVertexAttribPointer(1, 3, c.GL_FLOAT, c.GL_FALSE, 6 * @sizeOf(f32), @ptrFromInt(offset));
+    c.glVertexAttribPointer(1, 3, c.GL_FLOAT, c.GL_FALSE, 6 * @sizeOf(c.GLfloat), @ptrFromInt(offset));
     c.glEnableVertexAttribArray(1);
 
     // Use indexes to avoid vertex duplication
-    const indeces = [_]c.GLuint{ 2, 0, 1, 3, 2, 1 };
+    const indeces = [_]c.GLuint{ 0, 1, 3, 3, 1, 2 };
     c.glBindBuffer(c.GL_ELEMENT_ARRAY_BUFFER, IBO);
     c.glBufferData(c.GL_ELEMENT_ARRAY_BUFFER, indeces.len * @sizeOf(c.GLuint), &indeces, c.GL_STATIC_DRAW);
 
