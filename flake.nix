@@ -8,7 +8,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ zig zls glfw libGL clang-tools_18 ];
+        nativeBuildInputs = with pkgs; [ glfw libGL ];
         shellHook = ''
           unset NIX_CFLAGS_COMPILE
           exec zsh
